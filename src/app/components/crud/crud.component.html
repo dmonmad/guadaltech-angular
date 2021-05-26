@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="panel panel-default">
+    <table *ngIf="!isLoading;else loading" class="table table-responsive table-dark table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellidos</th>
+          <th scope="col">Puesto</th>
+          <th scope="col">Horario</th>
+          <th scope="col">Fecha de Alta</th>
+          <th scope="col">Responsables</th>
+          <th scope="col">Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr (click)="selectBecario(item)" [class.table-danger]="item.id == ''"
+          [class.selected]="this.editingBecario.id != '' && this.editingBecario.id == item.id" *ngFor="let item of becarios">
+          <th scope="row">{{item.id == '' ? 'Registro vacío' : item.id}}</th>
+          <td>{{item.nombre}}</td>
+          <td>{{item.apellidos}}</td>
+          <td>{{item.puesto}}</td>
+          <td>{{item.horario}}</td>
+          <td>{{item.fechaalta}}</td>
+          <td>{{item.responsables}}</td>
+          <td><button (click)="deleteBecario(item)" type="button" class="btn btn-danger">
+              <i class="fas fa-trash"></i>
+            </button></td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #loading>
+      <app-spinner></app-spinner>
+    </ng-template>
+    <!-- <div *ngIf="editingBecario.id != ''"> -->
+    <div class="card" style="margin-top: 16px;">
+
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <h3 class="pull-left" style="margin:0">{{editingBecario.id != '' ? 'Editar' : 'Crear'}} </h3>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-6" style="text-align: right">
+            <span class="pull-right">
+              <button (click)="resetBecario()" type="button" class="btn btn-warning">
+                <i class="fas fa-close"></i>
+                Limpiar
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">ID</span>
+          <input [ngModel]="editingBecario.id" type="text" disabled class="form-control" placeholder="ID"
+            aria-label="ID" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Nombre</span>
+          <input [(ngModel)]="editingBecario.nombre" type="text" class="form-control" placeholder="Nombre"
+            aria-label="Nombre" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Apellidos</span>
+          <input [(ngModel)]="editingBecario.apellidos" type="text" class="form-control" placeholder="Apellidos"
+            aria-label="Apellidos" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Puesto</span>
+          <input [(ngModel)]="editingBecario.puesto" type="text" class="form-control" placeholder="Puesto"
+            aria-label="Puesto" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Horario</span>
+          <input [(ngModel)]="editingBecario.horario" type="text" class="form-control" placeholder="Horario"
+            aria-label="Horario" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Fecha de Alta</span>
+          <input [(ngModel)]="editingBecario.fechaalta" type="text" class="form-control" placeholder="Fecha de Alta"
+            aria-label="FechaAlta" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Responsables</span>
+          <input [(ngModel)]="editingBecario.responsables" type="text" class="form-control" placeholder="Responsables"
+            aria-label="Responsables" aria-describedby="basic-addon1">
+        </div>
+        <button *ngIf="editingBecario.id == ''" (click)="crearBecario()" type="button" class="btn btn-primary">
+          <i class="fas fa-plus"></i>
+          Añadir
+        </button>
+        <button *ngIf="editingBecario.id != ''" (click)="editBecario()" type="button" class="btn btn-warning">
+          <i class="fas fa-edit"></i>
+          Editar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
